@@ -1,0 +1,41 @@
+body{
+    background-color: hsl(180, 52%, 96%);
+}
+.job-posting{
+    background-color: pink;
+    border: red 3px dotted;
+    // background-color: whitesmoke;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    & img{
+        margin-right: 1rem;
+    }
+}
+.tags{
+    display: flex;
+    gap: .5rem;
+    & li{
+        list-style: none;
+        background-color: #ddd;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+
+
+}
+.posting-information{
+    display: flex;
+    flex-direction: column;
+    // background-color: pink;
+    // border: red 3px dotted;
+    width: 50%;
+}
