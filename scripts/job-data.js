@@ -199,23 +199,51 @@ jobsToDisplay.forEach((job) =>{
    const jobTags = Object.entries(job.tagsObj);//Object.entries() outputs an array of arrays, with each inner array having two elements (key value pair)
    //console.log(allJobPostings[appendCounter]);  using square brackets because using a varaible for array index.
    jobTagsUl = document.createElement(`ul`);
-   jobTagsUl.classList =`tags`;
+   jobTagsUl.classList =`tagParent`;
    allJobPostings[appendCounter].append(jobTagsUl);
 
    jobTags.forEach(([tag, value]) =>{
 
       let tagsLi = document.createElement(`li`);
+      tagsLi.className = "tagChild";
       let tagValue = value;
       tagsLi.textContent = tagValue;
-      jobTagsUl.append(tagsLi);
-      // TODO addevenlistener for tag filtering     
+      jobTagsUl.append(tagsLi);   
    });
-   appendCounter = appendCounter + 1;
+   appendCounter++;
+});
+// creating an array of all tags. (might not be needed?)
+const allTags = document.querySelectorAll(`.tagChild`);
+
+//move the arrow function code here after finished prototyping.
+//const filterPosts (tag) =>{};
+
+
+// detects if a tag is clicked then moves it to the filtered section if so.
+allJobPostings.forEach((posting) =>{
+  const filterSection = document.querySelector(`.filtered-section`);
+  posting.addEventListener(`click`, (e)=>{
+    if(e.target.className === `tagChild`){// grabs the tag sucessfully
+      const selectedTag = document.createElement(`p`);
+      selectedTag.innerText = e.target.innerText;
+      selectedTag.id = `${selectedTag.innerText}-tag`
+      selectedTag.className = `tags`;
+      
+      //check if selectedTag exists on the page
+      if(document.getElementById(`${selectedTag.innerText}-tag`) === null){
+        filterSection.append(selectedTag);
+        console.log(selectedTag.innerText + " is now being filtered");
+      } else{
+        console.log(`Already being filtered.`);
+      };
+    };
+  });
 });
 
-// forEach loop that appends NEW & FEATURED headlines to postings
 
-jobsToDisplay.forEach((job)=>{
+
+// forEach loop that appends NEW & FEATURED headlines to postings
+jobsToDisplay.forEach((job, index)=>{
   const indexValue = jobsToDisplay.indexOf(job);
   
   if(job.isNew === true){
@@ -230,16 +258,15 @@ jobsToDisplay.forEach((job)=>{
     newNameTag[indexValue].appendChild(newPill);
   };
   if(job.isFeatured === true){
-    // create elements and assign text value.
+    // same logic as isNew check.
     const featuredPill = document.createElement(`span`);
     featuredPill.className = `featuredPill`;
     featuredPill.textContent = `FEATURED`
-    // if true give class to new span item and target
     allJobPostings[indexValue].classList.add(`featuredListing`);
-    // target the listing.
     const featuredNameTag = document.querySelectorAll(`.featuredListing p`);
-    // append the featured pill
     featuredNameTag[indexValue].appendChild(featuredPill);
   };
-
 });
+
+
+

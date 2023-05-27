@@ -49,16 +49,6 @@ table {
   border-spacing: 0;
 }
 
-.wrapper {
-  width: 80%;
-  margin: 0 auto;
-}
-
-body {
-  background-color: hsl(180, 52%, 96%);
-  font-family: "League Spartan", sans-serif;
-}
-
 header {
   background-color: hsl(180, 29%, 50%);
   margin-bottom: 4rem;
@@ -105,13 +95,13 @@ header .header-desktop {
   color: hsl(180, 52%, 96%);
 }
 
-.tags {
+.tagParent {
   display: flex;
   flex-basis: 50%;
   flex-direction: row-reverse;
   gap: 0.5rem;
 }
-.tags li {
+.tagParent li {
   background-color: hsl(180, 31%, 95%);
   color: hsl(180, 29%, 50%);
   font-weight: 700;
@@ -133,4 +123,44 @@ header .header-desktop {
   padding: 5px 10px;
   margin: 4px 2px;
   text-align: center;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+.wrapper {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+body {
+  background-color: hsl(180, 52%, 96%);
+  font-family: "League Spartan", sans-serif;
+}
+
+main {
+  margin-bottom: 5rem;
+}
+
+.filtered-section {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  padding: 1% 0;
+  margin-bottom: 1.5rem;
+}
+.filtered-section .tags {
+  text-align: center;
+  flex-direction: row;
+  justify-content: center;
+  flex-basis: 5%;
+  background-color: hsl(180, 31%, 95%);
+  color: hsl(180, 29%, 50%);
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 15px 15px;
+  cursor: pointer;
+}
+
+.active {
+  display: flex;
+}
