@@ -219,54 +219,76 @@ const allTags = document.querySelectorAll(`.tagChild`);
 //const filterPosts (tag) =>{};
 
 
-// detects if a tag is clicked then moves it to the filtered section if so.
-allJobPostings.forEach((posting) =>{
-  const filterSection = document.querySelector(`.filtered-section`);
-  posting.addEventListener(`click`, (e)=>{
-    if(e.target.className === `tagChild`){// grabs the tag sucessfully
-      const selectedTag = document.createElement(`p`);
+
+// Select the filtered section element
+const filterSection = document.querySelector('.filtered-section');
+const filteredTagsArray = []
+// Iterate over each job posting element in the allJobPostings array
+allJobPostings.forEach((posting) => {
+  // Add a click event listener to each job posting element
+  posting.addEventListener('click', (e) => {
+    // Check if the clicked element has the class "tagChild"
+    if (e.target.className === 'tagChild') {
+      // Create a new <p> element for the selected tag
+      const selectedTag = document.createElement('p');
       selectedTag.innerText = e.target.innerText;
-      selectedTag.id = `${selectedTag.innerText}-tag`
-      selectedTag.className = `tags`;
+      selectedTag.id = `${selectedTag.innerText}-tag`;
+      selectedTag.className = 'tags';
       
-      //check if selectedTag exists on the page
-      if(document.getElementById(`${selectedTag.innerText}-tag`) === null){
+      // Check if the selectedTag element already exists on the page
+      if (document.getElementById(`${selectedTag.innerText}-tag`) === null) {
+        // Append the selectedTag element to the filtered section
         filterSection.append(selectedTag);
-        console.log(selectedTag.innerText + " is now being filtered");
-      } else{
-        console.log(`Already being filtered.`);
-      };
-    };
+        filteredTagsArray.push(selectedTag);
+        console.log(selectedTag.innerText + ' is now being filtered');
+      } else {
+        console.log('Already being filtered.');
+      }
+    }
   });
 });
 
 
 
-// forEach loop that appends NEW & FEATURED headlines to postings
-jobsToDisplay.forEach((job, index)=>{
+
+// Iterate over each job in the jobsToDisplay array using a forEach loop
+jobsToDisplay.forEach((job, index) => {
+  // Retrieve the index of the current job in the jobsToDisplay array
   const indexValue = jobsToDisplay.indexOf(job);
   
-  if(job.isNew === true){
-    const newPill = document.createElement(`span`);
-    newPill.className = `newPill`;
-    newPill.textContent = `NEW!`
-    // if true give class to new span item and target
-    allJobPostings[indexValue].classList.add(`newListing`);
-    // target the listing.
-    const newNameTag = document.querySelectorAll(`.newListing p`);
-    // append the featured pill
+  // Check if the job is marked as "new"
+  if (job.isNew === true) {
+    // Create a new <span> element for the "NEW!" pill
+    const newPill = document.createElement('span');
+    newPill.className = 'newPill';
+    newPill.textContent = 'NEW!';
+
+    // Add the 'newListing' class to the corresponding job posting element
+    allJobPostings[indexValue].classList.add('newListing');
+    
+    // Target the <p> element within the 'newListing' job posting
+    const newNameTag = document.querySelectorAll('.newListing p');
+    
+    // Append the "NEW!" pill to the <p> element
     newNameTag[indexValue].appendChild(newPill);
   };
-  if(job.isFeatured === true){
-    // same logic as isNew check.
-    const featuredPill = document.createElement(`span`);
-    featuredPill.className = `featuredPill`;
-    featuredPill.textContent = `FEATURED`
-    allJobPostings[indexValue].classList.add(`featuredListing`);
-    const featuredNameTag = document.querySelectorAll(`.featuredListing p`);
+
+  // Check if the job is marked as "featured"
+  if (job.isFeatured === true) {
+    // Create a new <span> element for the "FEATURED" pill
+    const featuredPill = document.createElement('span');
+    featuredPill.className = 'featuredPill';
+    featuredPill.textContent = 'FEATURED';
+
+    // Add the 'featuredListing' class to the corresponding job posting element
+    allJobPostings[indexValue].classList.add('featuredListing');
+    
+    // Target the <p> element within the 'featuredListing' job posting
+    const featuredNameTag = document.querySelectorAll('.featuredListing p');
+    
+    // Append the "FEATURED" pill to the <p> element
     featuredNameTag[indexValue].appendChild(featuredPill);
   };
 });
-
 
 
