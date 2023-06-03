@@ -4,18 +4,18 @@ const jobContainer = document.querySelector('.job-list');
 const filterSection = document.querySelector('.filtered-section');
 const filteredTagsArray = [];
 let jobListHTML = '';
-let postCounter = 0;
-const filteredJobsToDisplay = [];
+
 
 ///making above viewable in browserConsole.=
 window.jobContainer = jobContainer;
 window.filterSection = filterSection;
 window.filteredTagsArray = filteredTagsArray;
-window.filteredJobsToDisplay = filteredJobsToDisplay;
+//window.jobListHTML = jobListHTML;
 
 
-const intialRender = () =>{
-  jobsToDisplay.forEach((job) => {
+
+const pageRender = (parsedArr) =>{
+  parsedArr.forEach((job) => {
     jobListHTML +=
     `<li class = "job-posting">
     ${job.companyImg}
@@ -29,16 +29,17 @@ const intialRender = () =>{
     </ul>
     </div>
     </li>`;
-    postCounter++;
   });
   jobContainer.innerHTML = jobListHTML;
-  postingCtaHandling();jobTagHandling();
 };
-const jobTagHandling = () =>{
+
+const jobTagHandling = (parsedArr) =>{
+
   const allJobPostings = document.querySelectorAll(`.job-posting`);
   let appendCounter = 0;
-  jobsToDisplay.forEach((job) =>{
-    const jobTags = Object.values(job.tagsObj);//Object.values() outputs an array with the values from the given object. (aka grabs the value and spits out an array.)
+  parsedArr.forEach((job) =>{
+
+    const jobTags = Object.values(job.tagsObj);
     const jobTagsUl = document.createElement(`ul`);
     jobTagsUl.classList =`tagParent`;
     allJobPostings[appendCounter].appendChild(jobTagsUl);
@@ -56,30 +57,30 @@ const jobTagHandling = () =>{
     // Add a click event listener to each job posting element
   
     posting.addEventListener('click', (e) => {
-      // Check if the clicked element has the class "tagChild"
       if (e.target.className === 'tagChild') {
-        // Create a new <p> element for the selected tag
         const selectedTag = document.createElement('p');
         selectedTag.innerText = e.target.innerText;
         selectedTag.id = `${selectedTag.innerText}`;
         selectedTag.className = 'tags';
         
         // Check if the selectedTag element already exists on the page
+
         if (document.getElementById(`${selectedTag.innerText}`) === null) {
           // Append the selectedTag element to the filtered section
           filterSection.append(selectedTag);
           filteredTagsArray.push(selectedTag.innerText);
           console.log(filteredTagsArray);
+          filterHandling(jobsToDisplay,filteredTagsArray);
         };
       };
     });
   });
 };
-const postingCtaHandling =()=>{
+const postingCtaHandling =(parsedArr)=>{
   const allJobPostings = document.querySelectorAll(`.job-posting`);
-  jobsToDisplay.forEach((job, index) => {
+  parsedArr.forEach((job) => {
     // Retrieve the index of the current job in the jobsToDisplay array
-    const indexValue = jobsToDisplay.indexOf(job);
+    const indexValue = parsedArr.indexOf(job);
     
     // Check if the job is marked as "new"
     if (job.isNew === true) {
@@ -117,18 +118,39 @@ const postingCtaHandling =()=>{
   });
 };
 
-const filterHandling = (jobListings, filters)=>{
-  const jobListingTags = Object.values(jobListing.tagsObj);
-  filters.forEach((filter)=>{
-    const containsFilterTag = jobListingTags.includes(filter);
-    if(!containsFilterTag) {
-      // reject
-      return false
-    } 
-    return true
+//====================================
+// the source of my headaches below. //
+//====================================
+const filterHandling = (jobsArr, filters) => {
+  const filteredJobs = jobsArr.filter((job) => {
+    const jobTags = Object.values(job.tagsObj);
+    return filters.every((filter) => jobTags.includes(filter));
   });
+    if (filteredJobs.length === 0) {
+    console.log('No matches');
+  }else{
+    let newJobListHTML = '';
+    filteredJobs.forEach((job) => {
+      newJobListHTML +=
+      `<li class = "job-posting">
+      ${job.companyImg}
+      <div class="posting-information">
+      <p>${job.employer}</p>
+      <h3>${job.title}</h3>
+      <ul class="date-locale">
+      <li>${job.postDate}</li>
+      <li>${job.type}</li>
+      <li>${job.location}</li>
+      </ul>
+      </div>
+      </li>`;
+    });
+    jobContainer.innerHTML = '';
+    jobContainer.innerHTML = newJobListHTML;
+    jobTagHandling(filteredJobs);
+    postingCtaHandling(filteredJobs);
+  };
 };
-
 
 
 
@@ -142,9 +164,12 @@ const filterHandling = (jobListings, filters)=>{
 //@nested function: postingCtaHandling adds new and featured CTA's to perspective jobs
 
 //=========================================================================
-intialRender();
+pageRender(jobsToDisplay);
+jobTagHandling(jobsToDisplay);
+postingCtaHandling(jobsToDisplay);
 
 
+//
 
 
 
