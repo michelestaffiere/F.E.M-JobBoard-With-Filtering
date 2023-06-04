@@ -1,3 +1,5 @@
+
+// import job data array from data.js
 import jobsToDisplay from "./data.js"
 
 const jobContainer = document.querySelector('.job-list');
@@ -6,11 +8,11 @@ const filteredTagsArray = [];
 let jobListHTML = '';
 
 
-///making above viewable in browserConsole.=
+///making above viewable in browser console.
 window.jobContainer = jobContainer;
 window.filterSection = filterSection;
 window.filteredTagsArray = filteredTagsArray;
-//window.jobListHTML = jobListHTML;
+window.jobListHTML = jobListHTML;
 
 
 
@@ -118,9 +120,9 @@ const postingCtaHandling =(parsedArr)=>{
   });
 };
 
-//====================================
-// the source of my headaches below. //
-//====================================
+//===============================================================
+//  the source of my headaches comes from the function below.  //
+//===============================================================
 const filterHandling = (jobsArr, filters) => {
   const filteredJobs = jobsArr.filter((job) => {
     const jobTags = Object.values(job.tagsObj);
@@ -154,22 +156,28 @@ const filterHandling = (jobsArr, filters) => {
 
 
 
-
-
-//===========================================================================
-// @function intialRender: is responsible for parsing data.Js and creating the HTML for the job postings.
-//
-//@nested function: jobTagHandling() is responsible for parsing the nested objects in data.js and appending them to each perspective listing - also adds an onclick event listener that pushes the tags into the filteredTagsArray.
-
-//@nested function: postingCtaHandling adds new and featured CTA's to perspective jobs
-
-//=========================================================================
 pageRender(jobsToDisplay);
 jobTagHandling(jobsToDisplay);
 postingCtaHandling(jobsToDisplay);
 
 
+
+
+
+// Psuedo Code Section for TODO
+
+// remove filter tag func. (should be applied on the creation of the element, insdie the onclick appending inside JobTagHandling, this function should a be callback.)
+//  `click` event listener that grabs sibling innerText content (ex."Javascript");
+//   stores the sibling innerText to a variable (i.e = x);
+//   use .forEach() on the filterTagArray 
+//   if tag === x
+//   store the tag.indexOf() value.
+//   filterTagArray.splice(tagIndexVal,tagIndexVal);
 //
+//  then need to remove the visual element from the page.
+//    let tagToRemove = document.querySelector(`#x`) <- x representing the innerText of the tag from 169
+//    tagToRemove.remove(); 
+
 
 
 
