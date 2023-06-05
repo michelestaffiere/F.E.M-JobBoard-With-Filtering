@@ -4,6 +4,8 @@ import jobsToDisplay from "./data.js"
 
 const jobContainer = document.querySelector('.job-list');
 const filterSection = document.querySelector('.filtered-section');
+const clearBtn = document.querySelector(`#clear-btn`);
+const filteredTagsDiv = document.querySelector(`.filtered-tags`);
 const filteredTagsArray = [];
 let jobListHTML = '';
 
@@ -13,8 +15,15 @@ window.jobContainer = jobContainer;
 window.filterSection = filterSection;
 window.filteredTagsArray = filteredTagsArray;
 window.jobListHTML = jobListHTML;
+window.filteredTagsDiv = filteredTagsDiv
 
 
+
+const showFilteredTagsSection = () => {
+  if (filteredTagsDiv.childElementCount.length !== 0){
+    filterSection.style.display = "flex"
+  };
+};
 
 const pageRender = (parsedArr) =>{
   parsedArr.forEach((job) => {
@@ -55,24 +64,26 @@ const jobTagHandling = (parsedArr) =>{
     });
     appendCounter++;
   });
+
+  // adding tags to the fitler display section.
   allJobPostings.forEach((posting) => {
-    // Add a click event listener to each job posting element
-  
+    // Add a click event listener to each tag on a job posting.
     posting.addEventListener('click', (e) => {
       if (e.target.className === 'tagChild') {
         const selectedTag = document.createElement('p');
         selectedTag.innerText = e.target.innerText;
         selectedTag.id = `${selectedTag.innerText}`;
         selectedTag.className = 'tags';
+        // ADD CODE HERE FOR REMOVETAG BUTTON <- NEEDS TO BE NESTED INSIDE THE P AS A SPAN???
         
-        // Check if the selectedTag element already exists on the page
-
+        // Check if the selectedTag element already exists on the page by attempting to query it, if returns null it does not exist so we make it.
         if (document.getElementById(`${selectedTag.innerText}`) === null) {
-          // Append the selectedTag element to the filtered section
-          filterSection.append(selectedTag);
+          // filterSection.append(selectedTag);
+          filteredTagsDiv.append(selectedTag);
           filteredTagsArray.push(selectedTag.innerText);
           console.log(filteredTagsArray);
           filterHandling(jobsToDisplay,filteredTagsArray);
+          showFilteredTagsSection();
         };
       };
     });
@@ -154,11 +165,10 @@ const filterHandling = (jobsArr, filters) => {
   };
 };
 
-
-
 pageRender(jobsToDisplay);
 jobTagHandling(jobsToDisplay);
 postingCtaHandling(jobsToDisplay);
+
 
 
 
@@ -176,7 +186,9 @@ postingCtaHandling(jobsToDisplay);
 //
 //  then need to remove the visual element from the page.
 //    let tagToRemove = document.querySelector(`#x`) <- x representing the innerText of the tag from 169
-//    tagToRemove.remove(); 
+//    tagToRemove.remove();
+//  
+// then need to reRender the page so call filterHandling at the end of the function.
 
 
 

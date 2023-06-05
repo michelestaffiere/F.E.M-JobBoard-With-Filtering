@@ -101,7 +101,8 @@ header .header-desktop {
   flex-direction: row-reverse;
   gap: 0.5rem;
 }
-.tagParent li {
+
+.tagChild {
   background-color: hsl(180, 31%, 95%);
   color: hsl(180, 29%, 50%);
   font-weight: 700;
@@ -114,6 +115,12 @@ header .header-desktop {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
+  transition: ease-in-out 0.15s;
+}
+
+.tagChild:hover {
+  background-color: hsl(180, 29%, 50%);
+  color: hsl(180, 31%, 95%);
 }
 
 .newPill, .featuredPill {
@@ -140,7 +147,7 @@ main {
 }
 
 .filtered-section {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   background-color: white;
   padding: 1% 0;
@@ -159,6 +166,41 @@ main {
   padding: 10px 20px;
   margin: 0 15px 15px;
   cursor: pointer;
+}
+
+.filtered-tags {
+  display: flex;
+}
+
+button {
+  font-weight: 600;
+  color: hsl(180, 29%, 50%);
+  background: none;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0.175rem;
+  background: hsl(180, 29%, 50%);
+  left: 0;
+  bottom: 0;
+  transform: scale(0, 1);
+}
+
+button:hover::after {
+  transform: scale(1, 1);
+  transition: transform ease-in-out 0.2s;
+}
+
+:hover:before {
+  transform: scaleX(1);
 }
 
 .active {

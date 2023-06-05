@@ -45,21 +45,27 @@ header{
     flex-basis: 50%;
     flex-direction: row-reverse;
     gap: .5rem;
-    & li {
-        background-color: hsl(180, 31%, 95%);
-        color:hsl(180, 29%, 50%);
-        font-weight: 700;
-        display: inline-block;
-        list-style: none;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        margin: 4px 2px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-    }
 }
+.tagChild{
+    background-color: hsl(180, 31%, 95%);
+    color:hsl(180, 29%, 50%);
+    font-weight: 700;
+    display: inline-block;
+    list-style: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: ease-in-out .15s;
+}
+.tagChild:hover{
+    background-color:hsl(180, 29%, 50%);
+    color: hsl(180, 31%, 95%);
+}
+
 .newPill,.featuredPill{
         font-weight: 500;
         border: none;
