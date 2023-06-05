@@ -4,7 +4,6 @@ import jobsToDisplay from "./data.js"
 
 const jobContainer = document.querySelector('.job-list');
 const filterSection = document.querySelector('.filtered-section');
-const clearBtn = document.querySelector(`#clear-btn`);
 const filteredTagsDiv = document.querySelector(`.filtered-tags`);
 const filteredTagsArray = [];
 let jobListHTML = '';
@@ -19,11 +18,6 @@ window.filteredTagsDiv = filteredTagsDiv
 
 
 
-const showFilteredTagsSection = () => {
-  if (filteredTagsDiv.childElementCount.length !== 0){
-    filterSection.style.display = "flex"
-  };
-};
 
 const pageRender = (parsedArr) =>{
   parsedArr.forEach((job) => {
@@ -43,7 +37,6 @@ const pageRender = (parsedArr) =>{
   });
   jobContainer.innerHTML = jobListHTML;
 };
-
 const jobTagHandling = (parsedArr) =>{
 
   const allJobPostings = document.querySelectorAll(`.job-posting`);
@@ -78,12 +71,12 @@ const jobTagHandling = (parsedArr) =>{
         
         // Check if the selectedTag element already exists on the page by attempting to query it, if returns null it does not exist so we make it.
         if (document.getElementById(`${selectedTag.innerText}`) === null) {
-          // filterSection.append(selectedTag);
           filteredTagsDiv.append(selectedTag);
           filteredTagsArray.push(selectedTag.innerText);
           console.log(filteredTagsArray);
           filterHandling(jobsToDisplay,filteredTagsArray);
           showFilteredTagsSection();
+          clearTagButtonHandling();
         };
       };
     });
@@ -130,10 +123,6 @@ const postingCtaHandling =(parsedArr)=>{
     };
   });
 };
-
-//===============================================================
-//  the source of my headaches comes from the function below.  //
-//===============================================================
 const filterHandling = (jobsArr, filters) => {
   const filteredJobs = jobsArr.filter((job) => {
     const jobTags = Object.values(job.tagsObj);
@@ -164,7 +153,23 @@ const filterHandling = (jobsArr, filters) => {
     postingCtaHandling(filteredJobs);
   };
 };
-
+const showFilteredTagsSection = () => {
+  if (filteredTagsDiv.childElementCount.length === 0){
+    filterSection.style.display = "none"
+  } else{
+    filterSection.style.display = "flex"
+  };
+};
+const clearTagButtonHandling = () =>{
+  const clearBtn = document.querySelector(`#clear-btn`);
+  clearBtn.addEventListener(`click`,(e)=>{
+    filteredTagsDiv.innerHTML = "";
+    filteredTagsArray.length = 0;
+    filterHandling(jobsToDisplay,filteredTagsArray);
+    filterSection.style.display = "none"
+  });
+};
+// Load the page 
 pageRender(jobsToDisplay);
 jobTagHandling(jobsToDisplay);
 postingCtaHandling(jobsToDisplay);
@@ -172,23 +177,6 @@ postingCtaHandling(jobsToDisplay);
 
 
 
-
-
-// Psuedo Code Section for TODO
-
-// remove filter tag func. (should be applied on the creation of the element, insdie the onclick appending inside JobTagHandling, this function should a be callback.)
-//  `click` event listener that grabs sibling innerText content (ex."Javascript");
-//   stores the sibling innerText to a variable (i.e = x);
-//   use .forEach() on the filterTagArray 
-//   if tag === x
-//   store the tag.indexOf() value.
-//   filterTagArray.splice(tagIndexVal,tagIndexVal);
-//
-//  then need to remove the visual element from the page.
-//    let tagToRemove = document.querySelector(`#x`) <- x representing the innerText of the tag from 169
-//    tagToRemove.remove();
-//  
-// then need to reRender the page so call filterHandling at the end of the function.
 
 
 
