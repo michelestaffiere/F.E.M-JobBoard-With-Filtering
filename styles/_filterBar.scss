@@ -5,10 +5,11 @@
     background-color: white;
     padding: 1% 0;
     margin-bottom: 1.5rem;
-    & .tags {
+    & .tagContainerDiv{
+        position: relative;
+        & .tags {
+        position: relative;
         text-align: center;
-        flex-direction: row;
-        justify-content: center;
         flex-basis: 5%;
         background-color: hsl(180, 31%, 95%);
         color:hsl(180, 29%, 50%);
@@ -17,11 +18,45 @@
         border-radius: 5px;
         padding: 10px 20px;
         margin: 0 15px 15px;
+        transition: .25s linear;
+        z-index: 2;
         cursor: pointer;
+    } 
+    .tags:hover{
+        background-color:hsl(180, 29%, 50%);
+        color: hsl(180, 31%, 95%);
+        border-radius: 5px 0px 0px 5px;
+        }
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        background-color: hsl(180, 31%, 95%);
+        padding: 2px;
+        border-radius: 5px;
+        height: 2rem;
+        z-index: -1; 
+        & img { 
+            width: 1.25rem;
+            }
+        }
+    }
+    .tagContainerDiv:hover{
+        div{
+            transform: translateX(-19px);
+            z-index: 1;
+        }
     }
 }
+
 .filtered-tags{
     display: flex;
+    flex-wrap: wrap;
 }
 button{
     font-weight: 600;

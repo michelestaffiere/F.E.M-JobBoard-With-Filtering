@@ -15,7 +15,6 @@ const jobsToDisplay =[
          tag4: `CSS`,
          tag5: `Javascript`
        }
-
     },
     {
         employer: `Manage`,

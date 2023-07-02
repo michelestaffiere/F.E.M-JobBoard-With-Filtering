@@ -9,16 +9,6 @@ const filteredTagsArray = [];
 let jobListHTML = '';
 
 
-///making above viewable in browser console.
-window.jobContainer = jobContainer;
-window.filterSection = filterSection;
-window.filteredTagsArray = filteredTagsArray;
-window.jobListHTML = jobListHTML;
-window.filteredTagsDiv = filteredTagsDiv
-
-
-
-
 const pageRender = (parsedArr) =>{
   parsedArr.forEach((job) => {
     jobListHTML +=
@@ -38,7 +28,6 @@ const pageRender = (parsedArr) =>{
   jobContainer.innerHTML = jobListHTML;
 };
 const jobTagHandling = (parsedArr) =>{
-
   const allJobPostings = document.querySelectorAll(`.job-posting`);
   let appendCounter = 0;
   parsedArr.forEach((job) =>{
@@ -67,13 +56,25 @@ const jobTagHandling = (parsedArr) =>{
         selectedTag.innerText = e.target.innerText;
         selectedTag.id = `${selectedTag.innerText}`;
         selectedTag.className = 'tags';
-        // ADD CODE HERE FOR REMOVETAG BUTTON <- NEEDS TO BE NESTED INSIDE THE P AS A SPAN???
-        
+
         // Check if the selectedTag element already exists on the page by attempting to query it, if returns null it does not exist so we make it.
         if (document.getElementById(`${selectedTag.innerText}`) === null) {
-          filteredTagsDiv.append(selectedTag);
-          filteredTagsArray.push(selectedTag.innerText);
-          console.log(filteredTagsArray);
+          const newTag = selectedTag
+          const tagContainer = document.createElement('div');
+          const closeBox = document.createElement('div');
+          const closeSVG = document.createElement('img');
+
+          closeSVG.src = './styles/assets/close.svg';
+
+          tagContainer.classList.add('tagContainerDiv');
+
+          filteredTagsDiv.append(tagContainer)
+          tagContainer.append(newTag)
+          tagContainer.append(closeBox)
+          closeBox.append(closeSVG)
+
+      
+          filteredTagsArray.push(newTag.innerText);
           filterHandling(jobsToDisplay,filteredTagsArray);
           showFilteredTagsSection();
           clearTagButtonHandling();
@@ -81,6 +82,15 @@ const jobTagHandling = (parsedArr) =>{
       };
     });
   });
+
+  if (filteredTagsDiv.hasChildNodes()) {
+    const addedTag = filteredTagsDiv.lastChild;
+    addedTag.addEventListener('click', () => {
+      filteredTagsArray.splice(filteredTagsArray.indexOf(addedTag.innerText),1);
+      addedTag.remove();
+      filterHandling(jobsToDisplay,filteredTagsArray);
+    });
+  };
 };
 const postingCtaHandling =(parsedArr)=>{
   const allJobPostings = document.querySelectorAll(`.job-posting`);
@@ -129,7 +139,7 @@ const filterHandling = (jobsArr, filters) => {
     return filters.every((filter) => jobTags.includes(filter));
   });
     if (filteredJobs.length === 0) {
-    console.log('No matches');
+      console.log('No matches');
   }else{
     let newJobListHTML = '';
     filteredJobs.forEach((job) => {
@@ -162,22 +172,15 @@ const showFilteredTagsSection = () => {
 };
 const clearTagButtonHandling = () =>{
   const clearBtn = document.querySelector(`#clear-btn`);
-  clearBtn.addEventListener(`click`,(e)=>{
+  clearBtn.addEventListener(`click`,()=>{
     filteredTagsDiv.innerHTML = "";
     filteredTagsArray.length = 0;
     filterHandling(jobsToDisplay,filteredTagsArray);
     filterSection.style.display = "none"
   });
 };
+
 // Load the page 
 pageRender(jobsToDisplay);
 jobTagHandling(jobsToDisplay);
 postingCtaHandling(jobsToDisplay);
-
-
-
-
-
-
-
-
