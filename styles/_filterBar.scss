@@ -50,6 +50,11 @@
         div{
             transform: translateX(-19px);
             z-index: 1;
+            cursor: pointer;
+        }
+        .tags{
+            background-color:hsl(180, 29%, 50%);
+            color: hsl(180, 31%, 95%);
         }
     }
 }

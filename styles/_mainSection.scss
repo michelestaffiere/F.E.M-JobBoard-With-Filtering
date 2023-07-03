@@ -11,27 +11,65 @@ header{
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-}
-.job-posting{
-    background-color: white;
-    border-radius: 5px;
-    filter: drop-shadow(0px 13px 5px hsla(180, 29%, 50%, 0.516));    // border: red 3px dotted;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    padding: 1.5rem;
-    gap: 1rem;
-    & img{
-        margin-right: 1rem;
+    & .job-posting{
+        background-color: white;
+        border-radius: 5px;
+        border-left:.5rem solid hsl(180, 29%, 50%);
+        filter: drop-shadow(0px 13px 5px hsla(180, 29%, 50%, 0.516)); 
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        gap: 1rem;
+        .tagParent{
+            display: flex;
+            flex-basis: 50%;
+            flex-direction: row-reverse;
+            gap: .5rem;
+            & .tagChild{
+                background-color: hsl(180, 31%, 95%);
+                color:hsl(180, 29%, 50%);
+                font-weight: 700;
+                display: inline-block;
+                list-style: none;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                margin: 4px 2px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                transition: ease-in-out .15s;
+            }
+            .tagChild:hover{
+                background-color:hsl(180, 29%, 50%);
+                color: hsl(180, 31%, 95%);
+            }
+        }
+        & img{
+            margin-right: 1rem;
+        }
+        .posting-information{
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            flex-basis: 50%;
+            width: 75%;
+            & .date-locale{
+                width: 50%;
+                list-style-type: disc; ;
+                display: flex;
+                gap: 1.5rem;
+                opacity: 60%;
+                & li{
+                    margin-left: 1rem;
+                }
+            }
+        }
     }
 }
-.posting-information{
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    flex-basis: 50%;
-    width: 50%;
-}
+
+
 .newPill{
     background-color:hsl(180, 29%, 50%) ;
     color:hsl(180, 31%, 95%);
@@ -40,32 +78,6 @@ header{
     background-color: hsl(180, 14%, 20%);
     color: hsl(180, 52%, 96%)
 }
-.tagParent{
-    display: flex;
-    flex-basis: 50%;
-    flex-direction: row-reverse;
-    gap: .5rem;
-}
-.tagChild{
-    background-color: hsl(180, 31%, 95%);
-    color:hsl(180, 29%, 50%);
-    font-weight: 700;
-    display: inline-block;
-    list-style: none;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin: 4px 2px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: ease-in-out .15s;
-}
-.tagChild:hover{
-    background-color:hsl(180, 29%, 50%);
-    color: hsl(180, 31%, 95%);
-}
-
 .newPill,.featuredPill{
         font-weight: 500;
         border: none;

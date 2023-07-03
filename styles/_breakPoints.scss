@@ -1,0 +1,33 @@
+/* SmartPhoens to Tablets */
+@media only screen and (max-width: 1250px){
+.job-list{
+    padding-top: 1.5rem;
+    gap: 4rem;
+}
+    .job-list .job-posting{
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 4rem;
+}
+.job-list .job-posting .posting-information .date-locale{
+    width: 100%;
+    gap: 1rem;
+}
+.job-list .job-posting .tagParent{
+    border-top: 1px solid rgba(0, 0, 0, 0.307);
+    padding-top: 1rem;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.job-list .job-posting img {
+    margin-right: 1rem;
+    position: absolute;
+    top: -10%;
+    width: 4.5rem;
+}
+}
+/* EXTRA SMALL */
+@media only screen and (min-width: 320px) {
+
+}
